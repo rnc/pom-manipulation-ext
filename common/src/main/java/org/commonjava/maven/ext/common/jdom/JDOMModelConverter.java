@@ -25,8 +25,11 @@ import org.jdom.UncheckedJDOMFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Optional;
 
 @SuppressWarnings( { "rawtypes", "JavaDoc" } )
 public class JDOMModelConverter
@@ -901,7 +904,7 @@ public class JDOMModelConverter
      * @param counter
      * @param element
      */
-    protected void updateActivation( final Activation activation, final IndentationCounter counter, final Element element )
+    protected void updateActivation(final Activation activation, final IndentationCounter counter, final Element element )
     {
         final boolean shouldExist = ( activation != null );
         final Element root = Utils.updateElement( counter, element, "activation", shouldExist );
@@ -930,7 +933,7 @@ public class JDOMModelConverter
      * @param counter
      * @param element
      */
-    protected void updateActivationFile( final ActivationFile activationFile, final IndentationCounter counter, final Element element )
+    protected void updateActivationFile(final ActivationFile activationFile, final IndentationCounter counter, final Element element )
     {
         final boolean shouldExist = ( activationFile != null );
         final Element root = Utils.updateElement( counter, element, "file", shouldExist );
@@ -948,7 +951,7 @@ public class JDOMModelConverter
      * @param counter
      * @param element
      */
-    protected void updateActivationOS( final ActivationOS activationOS, final IndentationCounter counter, final Element element )
+    protected void updateActivationOS(final ActivationOS activationOS, final IndentationCounter counter, final Element element )
     {
         final boolean shouldExist = ( activationOS != null );
         final Element root = Utils.updateElement( counter, element, "os", shouldExist );
@@ -974,7 +977,7 @@ public class JDOMModelConverter
      * @param counter
      * @param element
      */
-    protected void updateActivationProperty( final ActivationProperty activationProperty, final IndentationCounter counter, final Element element )
+    protected void updateActivationProperty(final ActivationProperty activationProperty, final IndentationCounter counter, final Element element )
     {
         final boolean shouldExist = ( activationProperty != null );
         final Element root = Utils.updateElement( counter, element, "property", shouldExist );
@@ -992,7 +995,7 @@ public class JDOMModelConverter
      * @param counter
      * @param element
      */
-    protected void updateBuild( final Build build, final IndentationCounter counter, final Element element )
+    protected void updateBuild(final Build build, final IndentationCounter counter, final Element element )
     {
         final boolean shouldExist = ( build != null );
         final Element root = Utils.updateElement( counter, element, "build", shouldExist );
@@ -1040,7 +1043,7 @@ public class JDOMModelConverter
      * @param counter
      * @param element
      */
-    protected void updateBuildBase( final BuildBase buildBase, final IndentationCounter counter, final Element element )
+    protected void updateBuildBase(final BuildBase buildBase, final IndentationCounter counter, final Element element )
     {
         final boolean shouldExist = ( buildBase != null );
         final Element root = Utils.updateElement( counter, element, "build", shouldExist );
@@ -1064,7 +1067,7 @@ public class JDOMModelConverter
      * @param counter
      * @param element
      */
-    protected void updateCiManagement( final CiManagement ciManagement, final IndentationCounter counter, final Element element )
+    protected void updateCiManagement(final CiManagement ciManagement, final IndentationCounter counter, final Element element )
     {
         final boolean shouldExist = ( ciManagement != null );
         final Element root = Utils.updateElement( counter, element, "ciManagement", shouldExist );
@@ -1219,8 +1222,8 @@ public class JDOMModelConverter
      * @param counter
      * @param element
      */
-    protected void updateDistributionManagement( final DistributionManagement distributionManagement, final IndentationCounter counter,
-                                                 final Element element )
+    protected void updateDistributionManagement(final DistributionManagement distributionManagement, final IndentationCounter counter,
+                                                final Element element )
     {
         final boolean shouldExist = ( distributionManagement != null );
         final Element root = Utils.updateElement( counter, element, "distributionManagement", shouldExist );
@@ -1345,7 +1348,7 @@ public class JDOMModelConverter
      * @param counter
      * @param element
      */
-    protected void updateModel( final Model model, final IndentationCounter counter, final Element element )
+    protected void updateModel(final Model model, final IndentationCounter counter, final Element element )
     {
         final IndentationCounter innerCount = new IndentationCounter( counter.getDepth() + 1 );
         Utils.findAndReplaceSimpleElement( innerCount, element,
@@ -1500,6 +1503,11 @@ public class JDOMModelConverter
         Utils.findAndReplaceSimpleElement( innerCount, element,
                                            "inherited", plugin.getInherited(),
                                            null );
+        Object o = plugin.getConfiguration();
+        System.out.println ("### JDOMModelConverter::Plugin::Classloader : " + o.getClass().getClassLoader() + " and " + o.getClass() + " and " + System.identityHashCode(o));
+        Xpp3Dom f = new Xpp3Dom("test");
+        System.out.println ("### JDOMModelConverter::Xpp3Dom::XClassloader : " + f.getClass().getClassLoader() + " and " + f.getClass() + " and " + System.identityHashCode(f));
+        System.out.println("### instanceof " + (o instanceof Xpp3Dom) + " and now local xpp3dom " + (f instanceof Xpp3Dom));
         Utils.findAndReplaceXpp3DOM( innerCount, element, "configuration", (Xpp3Dom) plugin.getConfiguration() );
     } // -- void updatePlugin( Plugin, String, Counter, Element )
 
