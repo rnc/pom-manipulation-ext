@@ -27,7 +27,7 @@
 
   <groupId>org.jboss.pnc.maven-manipulator</groupId>
   <artifactId>pom-manipulation-parent</artifactId>
-  <version>5.0</version>
+  <version>5.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>POM Manipulation Extension for Maven</name>
@@ -95,8 +95,8 @@
     <!-- In https://github.com/FasterXML/jackson-annotations/blob/2.x/release-notes/VERSION-2.x#L31 the patch number was dropped -->
     <jacksonAnnotationsVersion>2.20</jacksonAnnotationsVersion>
 
-    <argLine/>
-    <surefireSecurityManager/>
+    <argLine />
+    <surefireSecurityManager />
   </properties>
 
   <dependencyManagement>
@@ -104,60 +104,60 @@
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-annotation</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-common</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-cli</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-cli</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
         <classifier>minimal</classifier>
       </dependency>
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-core</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-core</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-ext</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-io</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-io</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-integration-test</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.jboss.pnc.maven-manipulator</groupId>
         <artifactId>pom-manipulation-integration-test</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
         <type>test-jar</type>
       </dependency>
 
@@ -598,12 +598,12 @@
             </additionalClasspathElements>
             <!-- ensure we don't inherit a byteman jar from any env settings -->
             <environmentVariables>
-              <BYTEMAN_HOME/>
+              <BYTEMAN_HOME />
             </environmentVariables>
             <systemProperties>
               <property>
                 <name>org.jboss.byteman.home</name>
-                <value/>
+                <value />
               </property>
             </systemProperties>
           </configuration>
@@ -789,7 +789,7 @@
             </sortPom>
           </pom>
           <java>
-            <removeUnusedImports/>
+            <removeUnusedImports />
             <importOrder>
               <file>java-import-order.txt</file>
             </importOrder>
