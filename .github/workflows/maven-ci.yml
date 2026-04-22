@@ -19,6 +19,8 @@
 
 name: CI
 
+permissions: {}
+
 on:
   push:
     branches: [ "main" ]
@@ -33,49 +35,26 @@ on:
     - 'LICENSE'
     - 'README.md'
 
-
-# cancel in-progress runs of the same workflow
-# to avoid unnecessary runs when multiple commits pushed
-# in a short period of time
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  build:
+  call-maven-ci:
+    if: github.repository == 'project-ncl/pom-manipulation-ext' && github.event_name == 'pull_request'
     strategy:
       fail-fast: false
       matrix:
-        maven: [3.3.9, 3.5.4, 3.6.3, 3.8.7, 3.9.0, 3.9.8]
+        maven-version: [3.3.9, 3.5.4, 3.6.3, 3.8.7, 3.9.0, 3.9.8]
         java-version: ['11']
         # Use include to add a specific Maven/JDK combination
         include:
-          - maven-version: '3.9.11'
-            java-version: '17'
-    # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idif
-    if: github.repository == 'project-ncl/pom-manipulation-ext' && github.event_name == 'pull_request'
+          - maven-version: [3.9.11, 3.9.15]
+            java-version: ['17']
+    uses: project-ncl/shared-github-actions/.github/workflows/maven-ci.yml@f7041589cc1ce5e75564bda958cc6e5182c240cd # v0.0.15
+    with:
+      build_command: "mvn -B -V clean install -Prun-its"
+      java_version: ${{ matrix.java-version }}
+      maven_version: ${{ matrix.maven-version }}
+  codecov:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
-    - name: Cache local Maven repository
-      uses: actions/cache@v5
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-    - name: Set up JDK
-      uses: actions/setup-java@v5
-      with:
-        distribution: 'temurin'
-        java-version: ${{ matrix.java-version }}
-    - name: Set up Maven
-      uses: stCarolas/setup-maven@v5
-      with:
-        maven-version:  ${{ matrix.maven }}
-    - name: Build with Maven
-      run: mvn -B -V install -Prun-its
+    - uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
     # - name: Setup tmate session
     #   uses: mxschmitt/action-tmate@v3
-    - name: Codecov
-      uses: codecov/codecov-action@v6
