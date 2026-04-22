@@ -45,9 +45,11 @@ jobs:
         java-version: ['11']
         # Use include to add a specific Maven/JDK combination
         include:
-          - maven-version: [3.9.11, 3.9.15]
-            java-version: ['17']
-    uses: project-ncl/shared-github-actions/.github/workflows/maven-ci.yml@f7041589cc1ce5e75564bda958cc6e5182c240cd # v0.0.15
+          - maven-version: 3.9.11
+            java-version: '17'
+          - maven-version: 3.9.15
+            java-version: '17'
+    uses: project-ncl/shared-github-actions/.github/workflows/maven-ci.yml@ef31e53140344cac0421b7211cc0940182409106 # v0.0.16
     with:
       build_command: "mvn -B -V clean install -Prun-its"
       java_version: ${{ matrix.java-version }}
