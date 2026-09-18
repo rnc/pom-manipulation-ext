@@ -17,6 +17,7 @@ updates:
       exclude:
         - "org.jboss.da:*"
         - "org.jboss.pnc*:*"        # match org.jboss.pnc:xyz and org.jboss.pnc.group:xyz
+        - "org.commonjava*:*"       # match org.commonjava:xyz and org.commonjava.group:xyz
     ignore:
       - dependency-name: "org.codehaus.plexus:plexus-xml"
         update-types: ["version-update:semver-major"]
